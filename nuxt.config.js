@@ -37,7 +37,20 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+  axios: {
+    prefix: '/api',
+  },
+  proxy: {
+    '/api': {
+      target: 'https://muscle-training-manager.herokuapp.com',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
+  },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
