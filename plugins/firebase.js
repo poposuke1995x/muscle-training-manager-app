@@ -1,12 +1,9 @@
 import firebase from 'firebase/app';
+import config from './firebase.config';
 import 'firebase/auth';
 
-const firebaseConfig = {
-
-};
-
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(config);
 }
 
 export const authProviders = {
@@ -17,5 +14,4 @@ export const authProviders = {
   // Github: firebase.auth.GithubAuthProvider.PROVIDER_ID
 };
 
-const auth = firebase.auth();
-export default auth
+export default firebase.auth();
