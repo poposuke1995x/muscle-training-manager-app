@@ -25,7 +25,9 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <div v-if="route != '/login'">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      </div>
       <v-toolbar-title v-text="title" />
     </v-app-bar>
     <v-main>
@@ -36,7 +38,7 @@
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} {{ route }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -51,12 +53,27 @@ export default {
       items: [
         {
           icon: "mdi-apps",
-          title: "Home",
+          title: "ホーム",
           to: "/",
         },
         {
           icon: "mdi-chart-bubble",
           title: "Inspire",
+          to: "/inspire",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "メニューの作成",
+          to: "/inspire",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "種目の作成",
+          to: "/inspire",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "種目をメニューへ追加",
           to: "/inspire",
         },
         {
@@ -71,11 +88,16 @@ export default {
       title: "Muscle Training Manager",
     };
   },
+  computed: {
+    route() {
+      return this.$route.path;
+    },
+  },
+  created() {
+    // console.log(this.$route.path);
+  },
 };
 </script>
 
 <style lang="scss">
-
-
-
 </style>
