@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="initialized">
     <div v-for="menu in trainingMenu" :key="menu.id">
       <v-card>
         <v-card-title>
@@ -17,19 +17,19 @@ import auth from "../plugins/firebase";
 export default {
   components: {},
   async asyncData({ $axios }) {
-    const response = await $axios.$get("training_menu");
-    return { response };
+    return $axios.get("training_menu").then(response => {
+      const userId = response.headers['user_id'];
+      const trainingMenu = response.data.filter(menu => menu.userId == userId)
+      return {userId, trainingMenu}
+      });
   },
   data() {
-    return {};
-  },
-  computed: {
-    trainingMenu() {
-      return this.response.filter(menu => menu.id === 1)
-    }
+    return {
+      initialized: false,
+    };
   },
   async created() {
-    auth.currentUser.getIdToken(true).then((token) => console.log(token));
+    this.initialized = true;
   },
 };
 </script>

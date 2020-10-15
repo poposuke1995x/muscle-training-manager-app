@@ -23,9 +23,8 @@ export default {
   methods: {
     login() {
       auth
-        .signInWithEmailAndPassword(this.email, this.password).then(() => {
-          this.$router.push("/")
-        })
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => this.$router.push("/"))
         .catch((error) => {
           alert(error);
         });
