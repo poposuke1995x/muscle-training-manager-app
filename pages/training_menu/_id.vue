@@ -57,6 +57,11 @@ export default {
 
     };
   },
+  methods: {
+    async update(liftTypes) {
+      this.$axios.post();
+    }
+  },
   async created() {
 
   },
