@@ -10,6 +10,7 @@ import auth from '../plugins/firebase'
 export default {
   methods: {
     logout() {
+      localStorage.clear()
       auth.signOut();
     }
   }
