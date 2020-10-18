@@ -2,9 +2,33 @@
   <div>
     <v-form>
       <v-container>
-        <v-text-field label="MailAddress" v-model="email"></v-text-field>
-        <v-text-field label="Password" v-model="password" type="password"></v-text-field>
-        <v-btn color="primary" @click="login">Login</v-btn>
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              label="メールアドレス"
+              v-model="email"
+            ></v-text-field>
+            <v-text-field
+              label="パスワード"
+              v-model="password"
+              type="password"
+            ></v-text-field>
+
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-btn
+              color="primary"
+              @click="login"
+            >ログイン</v-btn>
+            <v-btn
+              color="primary"
+              @click="signup"
+            >新規登録</v-btn>
+          </v-col>
+        </v-row>
+
       </v-container>
     </v-form>
   </div>
@@ -24,6 +48,14 @@ export default {
     login() {
       auth
         .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => this.$router.push("/"))
+        .catch((error) => {
+          alert(error);
+        });
+    },
+    signup() {
+      auth
+        .createUserWithEmailAndPassword(this.email, this.password)
         .then(() => this.$router.push("/"))
         .catch((error) => {
           alert(error);

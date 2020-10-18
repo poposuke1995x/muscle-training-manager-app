@@ -24,7 +24,11 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar
+      :clipped-left="clipped"
+      fixed
+      app
+    >
       <div v-if="route != '/login'">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       </div>
@@ -35,9 +39,17 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
+    <v-navigation-drawer
+      v-model="rightDrawer"
+      :right="right"
+      temporary
+      fixed
+    >
     </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
+    <v-footer
+      :absolute="!fixed"
+      app
+    >
       <span>&copy; {{ new Date().getFullYear() }} {{ route }}</span>
     </v-footer>
   </v-app>
@@ -64,12 +76,12 @@ export default {
         {
           icon: "mdi-chart-bubble",
           title: "メニューの作成",
-          to: "/inspire",
+          to: "/training_menu/create",
         },
         {
           icon: "mdi-chart-bubble",
           title: "種目の作成",
-          to: "/inspire",
+          to: "/lift_types",
         },
         {
           icon: "mdi-chart-bubble",
@@ -99,5 +111,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
