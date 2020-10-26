@@ -4,9 +4,9 @@
       v-for="error in errors"
       :key="error.index"
     >
-      <font color="red">
+      <span style="color: red; ">
         <p>{{error}}</p>
-      </font>
+      </span>
     </div>
     <v-container>
       <v-row>
@@ -18,11 +18,13 @@
           >
         </v-col>
         <v-col cols="20">
-          <input
-            placeholder="参考URLを入力"
-            class="input"
-            v-model="response.referenceUrl"
-          >
+          <label>
+            <input
+              placeholder="参考URLを入力"
+              class="input"
+              v-model="response.referenceUrl"
+            />
+          </label>
           <v-checkbox
             v-model="response.shareFlag"
             label="他のトレーニーに共有する"

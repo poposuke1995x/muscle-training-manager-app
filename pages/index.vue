@@ -11,7 +11,10 @@
               <span class="title font-weight-light">{{ menu.name }}</span>
             </nuxt-link>
           </v-card-title>
-          <v-btn>種目を追加</v-btn>
+          <v-btn
+            @click="goLiftTypeRegistration(menu.id)"
+          >種目を追加
+          </v-btn>
         </v-card>
       </div>
     </div>
@@ -32,9 +35,9 @@ export default {
         trainingMenu: [],
       };
     return $axios.get("training_menu").then((response) => {
-      const userId = response.headers["user_id"];
+      const userId = parseInt(response.headers["user_id"]);
       const trainingMenu = response.data.filter(
-        (menu) => menu.userId == userId
+        menu => menu.userId === userId
       );
       return {
         userId,
@@ -47,6 +50,11 @@ export default {
     return {
       initialized: false,
     };
+  },
+  methods: {
+    goLiftTypeRegistration(menuId) {
+      this.$router.push(`/training_menu/${menuId}/lift_types`)
+    }
   },
   async created() {
     this.initialized = true;

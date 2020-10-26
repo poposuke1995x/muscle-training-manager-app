@@ -4,9 +4,9 @@
       v-for="error in errors"
       :key="error.index"
     >
-      <font color="red">
-        <p>{{error}}</p>
-      </font>
+      <span style="color: red; ">
+        {{error}}
+      </span>
     </div>
     <v-container>
       <v-row>
