@@ -11,6 +11,7 @@
               <span class="title font-weight-light">{{ menu.name }}</span>
             </nuxt-link>
           </v-card-title>
+          <v-btn>種目を追加</v-btn>
         </v-card>
       </div>
     </div>
@@ -21,11 +22,15 @@
 </template>
 
 <script>
-import auth from "../plugins/firebase";
 export default {
   components: {},
 
-  async asyncData({ $axios }) {
+  async asyncData({$axios}) {
+    if (!JSON.parse(localStorage.getItem("my-key"))?.token)
+      return {
+        userId: 0,
+        trainingMenu: [],
+      };
     return $axios.get("training_menu").then((response) => {
       const userId = response.headers["user_id"];
       const trainingMenu = response.data.filter(

@@ -32,12 +32,15 @@
           ></v-checkbox>
         </v-col>
       </v-row>
+      <v-row>
+        <v-btn
+          depressed
+          color="primary"
+          @click="createMenu(response)"
+        >作成</v-btn>
+      </v-row>
     </v-container>
-    <v-btn
-      depressed
-      color="primary"
-      @click="createMenu(response)"
-    >作成</v-btn>
+
   </div>
 </template>
 
@@ -68,11 +71,9 @@ export default {
   methods: {
     createMenu(response) {
       if (this.validate(response)) return;
-      this.$axios.post("training_menu", response).then((v) => {
-        console.log(v);
-        this.$router.push("/");
-      });
-      console.log(response);
+      this.$axios
+        .post("training_menu", response)
+        .then((v) => this.$router.push("/"));
     },
     validate(val) {
       this.errors = [];
