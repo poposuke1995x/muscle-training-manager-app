@@ -1,11 +1,11 @@
 <template>
   <div v-if="initialized">
-    <div v-if="trainingMenu.length">
+    <v-container v-if="trainingMenu.length">
       <div
         v-for="menu in trainingMenu"
         :key="menu.id"
       >
-        <v-card>
+        <v-card class="card">
           <v-card-title>
             <nuxt-link :to="`/training_menu/${menu.id}`">
               <span class="title font-weight-light">{{ menu.name }}</span>
@@ -17,10 +17,10 @@
           </v-btn>
         </v-card>
       </div>
-    </div>
-    <div v-else>
+    </v-container>
+    <v-container v-else>
       トレーニングメニューを作成しましょう
-    </div>
+    </v-container>
   </div>
 </template>
 
@@ -36,9 +36,9 @@ export default {
       };
     return $axios.get("training_menu").then((response) => {
       const userId = parseInt(response.headers["user_id"]);
-      const trainingMenu = response.data.filter(
-        menu => menu.userId === userId
-      );
+      const trainingMenu = response.data
+        //あとで自分のメニューのみ返すようにする
+        .filter(menu => menu.userId === userId);
       return {
         userId,
         trainingMenu,
@@ -61,3 +61,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.card {
+  margin-bottom: 20px;
+}
+
+</style>

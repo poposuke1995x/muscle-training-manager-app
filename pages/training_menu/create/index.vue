@@ -11,11 +11,13 @@
     <v-container>
       <v-row>
         <v-col cols="10">
-          <input
-            placeholder="トレーニング名を入力"
-            class="input"
-            v-model="response.name"
-          >
+          <label>
+            <input
+              placeholder="トレーニング名を入力"
+              class="input"
+              v-model="response.name"
+            >
+          </label>
         </v-col>
         <v-col cols="7">
           <v-select
