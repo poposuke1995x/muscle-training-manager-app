@@ -49,6 +49,7 @@ export default {
   proxy: {
     '/api': {
       target: 'https://muscle-training-manager.herokuapp.com',
+      // target: 'http://localhost:9000',
       pathRewrite: {
         '^/api': '/'
       }
