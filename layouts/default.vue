@@ -29,33 +29,10 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+      <div v-if="route !== '/login'">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      </div>
       <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -68,16 +45,6 @@
       temporary
       fixed
     >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
     </v-navigation-drawer>
     <v-footer
       :absolute="!fixed"
@@ -90,28 +57,58 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      clipped: false,
+      clipped: true,
       drawer: false,
-      fixed: false,
+      fixed: true,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          icon: "mdi-apps",
+          title: "ホーム",
+          to: "/",
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
+          icon: "mdi-chart-bubble",
+          title: "Inspire",
+          to: "/inspire",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "メニューの作成",
+          to: "/training_menu/create",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "種目の作成",
+          to: "/lift_types",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "種目をメニューへ追加",
+          to: "/inspire",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Logout",
+          to: "/logout",
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
-    }
-  }
-}
+      title: "Muscle Training Manager",
+    };
+  },
+  computed: {
+    route() {
+      return this.$route.path;
+    },
+  },
+  created() {
+    // console.log(this.$route.path);
+  },
+};
 </script>
+
+<style lang="scss"></style>

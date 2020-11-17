@@ -1,89 +1,70 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
+  <div v-if="initialized">
+    <v-container v-if="trainingMenu.length">
+      <div
+        v-for="menu in trainingMenu"
+        :key="menu.id"
+      >
+        <v-card class="card">
+          <v-card-title>
+            <nuxt-link :to="`/training_menu/${menu.id}`">
+              <span class="title font-weight-light">{{ menu.name }}</span>
+            </nuxt-link>
+          </v-card-title>
           <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
+            @click="goLiftTypeRegistration(menu.id)"
+          >種目を追加
           </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+        </v-card>
+      </div>
+    </v-container>
+    <v-container v-else>
+      トレーニングメニューを作成しましょう
+    </v-container>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
-}
+  components: {},
+
+  async asyncData({$axios}) {
+    if (!JSON.parse(localStorage.getItem("my-key"))?.token)
+      return {
+        userId: 0,
+        trainingMenu: [],
+      };
+    return $axios.get("training_menu").then((response) => {
+      const userId = parseInt(response.headers["user_id"]);
+      const trainingMenu = response.data
+        //あとで自分のメニューのみ返すようにする
+        .filter(menu => menu.userId === userId);
+      return {
+        userId,
+        trainingMenu,
+      };
+    });
+  },
+
+  data() {
+    return {
+      initialized: false,
+    };
+  },
+  methods: {
+    goLiftTypeRegistration(menuId) {
+      this.$router.push(`/training_menu/${menuId}/lift_types`)
+    }
+  },
+  async created() {
+    this.initialized = true;
+  },
+};
 </script>
+
+<style lang="scss">
+.card {
+  margin-bottom: 20px;
+}
+
+</style>
