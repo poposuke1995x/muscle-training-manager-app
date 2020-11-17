@@ -7,7 +7,7 @@
       v-for="error in errors"
       :key="error.index"
     >
-      <span style="color: red;">
+      <span style="color: #ff0000;">
         {{ error }}
       </span>
     </div>

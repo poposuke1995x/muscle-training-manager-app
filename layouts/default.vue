@@ -29,7 +29,7 @@
       fixed
       app
     >
-      <div v-if="route != '/login'">
+      <div v-if="route !== '/login'">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       </div>
       <v-toolbar-title v-text="title" />
