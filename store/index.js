@@ -13,10 +13,10 @@ export const getters = {
 }
 
 export const actions = {
-  async setToken({commit},token) {
+  async setToken({commit}, token) {
     await commit('setToken', token)
   },
-  async setUserId({commit},userId) {
+  async setUserId({commit}, userId) {
     await commit('setUserId', userId)
   }
 }

@@ -29,7 +29,7 @@
       fixed
       app
     >
-      <div v-if="route !== '/login'">
+      <div v-if="route != '/login'">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       </div>
       <v-toolbar-title v-text="title" />
@@ -70,11 +70,6 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire",
-        },
-        {
-          icon: "mdi-chart-bubble",
           title: "メニューの作成",
           to: "/training_menu/create",
         },
@@ -82,11 +77,6 @@ export default {
           icon: "mdi-chart-bubble",
           title: "種目の作成",
           to: "/lift_types",
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "種目をメニューへ追加",
-          to: "/inspire",
         },
         {
           icon: "mdi-chart-bubble",

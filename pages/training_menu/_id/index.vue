@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-btn
+      @click="update"
       depressed
       color="primary"
       style="margin-left: 70%;"
@@ -19,9 +20,10 @@
         <v-container>
           <v-card-title>{{ liftType.name }}
             <pre>  </pre>
-            <nuxt-link :to="`/`">
-              <v-btn>詳細</v-btn>
-            </nuxt-link>
+            <v-btn
+              @click="goMovie(liftType.referenceUrl)"
+            >参考動画を視聴
+            </v-btn>
           </v-card-title>
           <v-row>
             <v-col cols="4">
@@ -44,21 +46,24 @@
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.defaultWeight"
+                        v-model="liftType.defaultWeight"
+                        @change="liftType.defaultWeight = parseInt(liftType.defaultWeight)"
                         style=" width: 3em;"
                       >
                     </label></td>
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.defaultRep"
+                        v-model="liftType.defaultRep"
+                        @change="liftType.defaultRep = parseInt(liftType.defaultRep)"
                         style=" width: 3em;"
                       >
                     </label></td>
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.defaultSetCount"
+                        v-model="liftType.defaultSetCount"
+                        @change="liftType.defaultSetCount = parseInt(liftType.defaultSetCount)"
                         style=" width: 3em;"
                       >
                     </label></td>
@@ -68,19 +73,22 @@
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.heavyWeight"
+                        v-model="liftType.heavyWeight"
+                        @change="liftType.heavyWeight = parseInt(liftType.heavyWeight)"
                         style=" width: 3em;"
                       >
                     </label></td>
                     <td><input
                       type="number"
-                      :value="liftType.heavyRep"
+                      v-model="liftType.heavyRep"
+                      @change="liftType.heavyRep = parseInt(liftType.heavyRep)"
                       style=" width: 3em;"
                     ></td>
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.heavySetCount"
+                        v-model="liftType.heavySetCount"
+                        @change="liftType.heavySetCount = parseInt(liftType.heavySetCount)"
                         style=" width: 3em;"
                       >
                     </label></td>
@@ -90,21 +98,24 @@
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.lightWeight"
+                        v-model="liftType.lightWeight"
+                        @change="liftType.lightWeight = parseInt(liftType.lightWeight)"
                         style=" width: 3em;"
                       >
                     </label></td>
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.lightRep"
+                        v-model="liftType.lightRep"
+                        @change="liftType.lightRep = parseInt(liftType.lightRep)"
                         style=" width: 3em;"
                       >
                     </label></td>
                     <td><label>
                       <input
                         type="number"
-                        :value="liftType.lightSetCount"
+                        v-model="liftType.lightSetCount"
+                        @change="liftType.lightSetCount = parseInt(liftType.lightSetCount)"
                         style=" width: 3em;"
                       >
                     </label></td>
@@ -127,11 +138,18 @@ export default {
     });
   },
   data() {
-    return {};
+    return {
+      result: []
+    };
   },
   methods: {
-    async update(liftTypes) {
+    async update() {
+      this.liftTypes.forEach(liftType => liftType.trainingMenuId = parseInt(this.$route.params.id))
+      await this.$axios.put(`${this.$route.path}/actions`, this.liftTypes)
     },
+    goMovie(url) {
+      window.open(url)
+    }
   },
   async created() {
   },

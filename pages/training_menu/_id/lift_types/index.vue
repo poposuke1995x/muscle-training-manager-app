@@ -60,6 +60,7 @@
             :items="bodyParts.filter(bodyPart => request.targetBodyPartIds.includes(bodyPart.id))"
             item-value="id"
             item-text="name"
+            no-data-text="狙う部位を選択してください"
             clearable
             label="メイン部位を選択"
           ></v-select>
