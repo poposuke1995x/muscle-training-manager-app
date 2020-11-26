@@ -5,7 +5,7 @@
       :key="error.index"
     >
       <span style="color: red; ">
-        {{error}}
+        {{ error }}
       </span>
     </div>
     <v-container>
@@ -19,6 +19,8 @@
             >
           </label>
         </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="7">
           <v-select
             v-model="response.categoryId"
@@ -35,11 +37,15 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-btn
-          depressed
-          color="primary"
-          @click="createMenu(response)"
-        >作成</v-btn>
+        <v-col>
+          <v-btn
+            depressed
+            color="primary"
+            @click="createMenu(response)"
+            class="button"
+          >作成
+          </v-btn>
+        </v-col>
       </v-row>
     </v-container>
 
@@ -48,7 +54,7 @@
 
 <script>
 export default {
-  asyncData({ $axios }) {
+  asyncData({$axios}) {
     return $axios.get("categories").then((response) => {
       const userId = parseInt(response.headers["user_id"]);
       const categories = response.data;

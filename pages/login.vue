@@ -1,7 +1,12 @@
 <template>
   <div>
     <v-form>
-      <v-container>
+      <v-container
+        v-if="!initialized"
+      >
+        アプリを起動中です。少々お待ち下さい。
+      </v-container>
+      <v-container v-else>
         <v-row>
           <v-col cols="6">
             <v-text-field
@@ -21,11 +26,13 @@
             <v-btn
               color="primary"
               @click="login"
-            >ログイン</v-btn>
+            >ログイン
+            </v-btn>
             <v-btn
               color="primary"
               @click="signup"
-            >新規登録</v-btn>
+            >新規登録
+            </v-btn>
           </v-col>
         </v-row>
 
@@ -42,6 +49,7 @@ export default {
     return {
       email: "",
       password: "",
+      initialized: false
     };
   },
   methods: {
@@ -62,5 +70,9 @@ export default {
         });
     },
   },
+  async created(){
+    await this.$axios.$get("/")
+    this.initialized = true;
+  }
 };
 </script>

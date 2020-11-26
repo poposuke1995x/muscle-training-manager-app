@@ -31,29 +31,14 @@
                   </v-col>
 
                 </v-row>
-                <v-row>
-               <v-spacer></v-spacer>
-                  <v-col></v-col>
-                  <v-col>
-                    <v-btn
-                      @click="deleteLiftType(liftType.id)"
-                      class="delete-button"
-                    >削除
-                    </v-btn>
-                  </v-col>
-                </v-row>
               </v-container>
             </v-card>
           </v-col>
-
         </div>
-
       </v-row>
     </v-container>
     <v-container v-else>
-      <nuxt-link :to="'/training_menu/create'">
-        種目を作成しましょう
-      </nuxt-link>
+      公開されている種目はありません。
     </v-container>
   </div>
 </template>
@@ -63,9 +48,9 @@ export default {
   components: {},
 
   async asyncData({$axios}) {
-    return await $axios.get("lift_types/user").then(response => {
+    return await $axios.get("lift_types").then(response => {
       const userId = parseInt(response.headers["user_id"]);
-      const liftTypes = response.data
+      const liftTypes = response.data.filter(liftType => liftType.userId !== userId)
       return {
         userId,
         liftTypes,
@@ -82,12 +67,6 @@ export default {
     goMovie(url) {
       window.open(url)
     },
-    async deleteLiftType(liftTypeId) {
-      await this.$axios.request({
-        method: 'delete',
-        url: `/lift_types/${liftTypeId}`
-      }).then(_ => location.reload())
-    }
   },
   async created() {
     this.initialized = true;
