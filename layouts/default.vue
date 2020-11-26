@@ -19,7 +19,7 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title v-text="item.title"/>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -30,13 +30,13 @@
       app
     >
       <div v-if="route !== '/login'">
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       </div>
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title v-text="title"/>
     </v-app-bar>
     <v-main>
       <v-container>
-        <nuxt />
+        <nuxt/>
       </v-container>
     </v-main>
     <v-navigation-drawer
@@ -70,8 +70,8 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire",
+          title: "種目一覧",
+          to: "/lift_types",
         },
         {
           icon: "mdi-chart-bubble",
@@ -81,12 +81,12 @@ export default {
         {
           icon: "mdi-chart-bubble",
           title: "種目の作成",
-          to: "/lift_types",
+          to: "/lift_types/create",
         },
         {
           icon: "mdi-chart-bubble",
-          title: "種目をメニューへ追加",
-          to: "/inspire",
+          title: "公開されている種目",
+          to: "/lift_types/shared",
         },
         {
           icon: "mdi-chart-bubble",
@@ -111,4 +111,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="sass">
+.button
+  margin-left: 90%
+
+</style>
